@@ -103,4 +103,5 @@ psql -U postgres -d climate_rag -f queries.sql
 ---
 
 ## AI Usage Disclosure
-Claude (Anthropic) was used to assist with Python ingestion script structure, SQL query design, and debugging column name mismatches. All code was reviewed, tested, and adapted by the team members.
+Claude (Anthropic) was used to assist with debugging column name mismatches. All code was manually written , reviewed, tested, and adapted by the team members.
+
