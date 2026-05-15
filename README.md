@@ -4,7 +4,10 @@
 **Due:** 15 May 2026, 23:59 EAT
 
 ---
+## GitHub Repository
+https://github.com/anubhavkumar-iit/Climate-Policy-RAG-Pipeline---IIT-Madras-DBMS-Project
 
+---
 ## Dataset
 - **Source:** ClimatePolicyRadar/all-document-text-data (Hugging Face, CC-BY 4.0)
 - **URL:** https://huggingface.co/datasets/ClimatePolicyRadar/all-document-text-data
