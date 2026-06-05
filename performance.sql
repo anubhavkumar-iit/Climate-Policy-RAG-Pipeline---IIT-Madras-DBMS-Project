@@ -77,13 +77,13 @@ Execution Time: 0.265 ms
 -- Justification: Query 1 filters on word_count > 80, scanning all 3598 rows.
 -- A B-Tree index allows the planner to use a Bitmap Index Scan, reading only
 -- matching rows directly rather than scanning the full table.
-CREATE INDEX idx_chunks_word_count ON chunks(word_count);
+CREATE INDEX IF NOT EXISTS idx_chunks_word_count ON chunks(word_count);
 
 -- Index 2: B-Tree on documents(year_published)
 -- Justification: Query 2 filters on year_published >= 2020. Without an index,
 -- the planner does a full Seq Scan over all 38 documents. The index allows
 -- direct range lookups, reducing planning cost even on a small table.
-CREATE INDEX idx_documents_year ON documents(year_published);
+CREATE INDEX IF NOT EXISTS idx_documents_year ON documents(year_published);
 
 -- =============================================================================
 -- SECTION 3: AFTER INDEXES — EXPLAIN ANALYZE with new indexes
@@ -154,12 +154,17 @@ BEGIN
 END;
 $$;
 
--- Test call (chunk_id=4001 is a verified existing chunk)
+-- Test calls (chunk_id=4001 is a verified existing chunk in the live database)
 CALL log_query(
     'What are Tanzania climate commitments?',
     'Tanzania committed to reduce emissions by 10-20% under its NDC.',
     4001
 );
+CALL log_query(
+    'What are Kenya climate commitments?',
+    'Kenya committed to reduce emissions by 30% under its NDC.',
+    4001
+);
 
--- Verify insertion
-SELECT * FROM queries;
+-- Verify insertions
+SELECT * FROM queries ORDER BY created_at DESC LIMIT 5;
