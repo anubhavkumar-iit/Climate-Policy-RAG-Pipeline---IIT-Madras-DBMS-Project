@@ -6,6 +6,13 @@
 ## GitHub Repository
 https://github.com/anubhavkumar-iit/Climate-Policy-RAG-Pipeline---IIT-Madras-DBMS-Project
 
+## Project Resources
+
+- 🎥 **Demo Video:** [Watch Here](https://drive.google.com/file/d/155hwsX8asDclFvdweUs0GdjhEPqASgLb/view?usp=sharing)
+- 📄 **Project Report:** Included in this repository.
+
+The demo video provides a complete walkthrough of the project, covering the database schema, data loading pipeline, SQL queries, retrieval-augmented generation workflow, and the Streamlit-based user interface.
+
 ---
 
 ## Dataset
