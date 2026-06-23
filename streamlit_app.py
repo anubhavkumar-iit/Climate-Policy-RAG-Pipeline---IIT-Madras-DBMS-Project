@@ -17,9 +17,9 @@ st.set_page_config(
 # Try loading relative .env first
 loaded_env = load_dotenv()
 if not loaded_env or not os.getenv("DB_NAME"):
-    # Fall back to absolute workspace path
-    
-import sys, os
+    load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env"))
+
+import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from app import load_model, get_connection, get_all_countries
 from retrieval_fallback import (
@@ -622,7 +622,7 @@ if page == "💬 Chatbot Assistant":
         if _ctrs:
             _items_html = "".join(
                 f'<div class="country-item">{iso_to_flag(iso)}&nbsp;{name}</div>'
-                for name, iso in _ctrs
+                for name, iso, *_ in _ctrs
             )
             st.markdown(
                 f'<div class="country-scroll">{_items_html}</div>',

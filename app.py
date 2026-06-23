@@ -29,9 +29,13 @@ def get_connection():
 # =============================================================================
 # 2. Embedding Model
 # =============================================================================
-print("Loading embedding model...")
-model = SentenceTransformer("all-MiniLM-L6-v2")
-print("Model loaded.")
+_model = None
+
+def load_model():
+    global _model
+    if _model is None:
+        _model = SentenceTransformer("all-MiniLM-L6-v2")
+    return _model
 
 # =============================================================================
 # 3. Detect if a specific country is named in the query
@@ -45,11 +49,9 @@ def get_all_country_names():
     conn.close()
     return names
 
-ALL_COUNTRY_NAMES = get_all_country_names()
-
 def detect_country_in_query(query_text):
     query_lower = query_text.lower()
-    for name in ALL_COUNTRY_NAMES:
+    for name in sorted(get_all_country_names(), key=len, reverse=True):
         if name.lower() in query_lower:
             return name
     return None
@@ -59,7 +61,7 @@ def detect_country_in_query(query_text):
 #    If a specific country is detected, filter results to that country only
 # =============================================================================
 def retrieve_chunks(query_text, top_k=5):
-    query_embedding = model.encode(query_text).tolist()
+    query_embedding = load_model().encode(query_text).tolist()
     vector_str = "[" + ",".join(map(str, query_embedding)) + "]"
 
     target_country = detect_country_in_query(query_text)
