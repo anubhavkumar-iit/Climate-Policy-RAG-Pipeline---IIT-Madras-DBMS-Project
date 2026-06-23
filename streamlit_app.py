@@ -16,9 +16,10 @@ st.set_page_config(
 # ── Environment & Backend Loading with Absolute Path Fallback ──────────────────
 # Try loading relative .env first
 loaded_env = load_dotenv()
+loaded_env = load_dotenv()
 if not loaded_env or not os.getenv("DB_NAME"):
-    # Fall back to absolute workspace path
-    
+    pass  # Fall back to absolute workspace path
+
 import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from app import load_model, get_connection, get_all_countries
